@@ -18,9 +18,8 @@ const Product = () => {
 
 
     return (
-        <div className="container mx-auto ">
-
-            <div className="lg:flex justify-between">
+        <div className=" bg-neutral-100">
+           <div className="container mx-auto  lg:flex justify-between">
                 <div className="lg:w-[20%]">
                     <Functionalities />
                 </div>

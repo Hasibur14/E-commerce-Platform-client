@@ -16,12 +16,12 @@ const Navbar = () => {
     };
 
     const controlNavbar = () => {
-        if (window.scrollY > lastScrollY) {
-            // Scroll Down
-            setShowNavbar(false);
-        } else {
-            // Scroll Up
+        if (window.scrollY < lastScrollY) {
+            // Scrolling up
             setShowNavbar(true);
+        } else if (window.scrollY > lastScrollY) {
+            // Scrolling down
+            setShowNavbar(false);
         }
         setLastScrollY(window.scrollY);
     };
@@ -79,7 +79,7 @@ const Navbar = () => {
     );
 
     return (
-        <div className={`w-full border-b shadow transition-transform duration-300 ${showNavbar ? "translate-y-0" : "-translate-y-full"}`}>
+        <div className={`w-full border-b shadow transition-transform duration-300 fixed top-0 left-0 right-0 z-50 bg-white ${showNavbar ? "translate-y-0" : "-translate-y-full"}`}>
             <div className="container mx-auto">
                 <div className="navbar">
                     <div className="navbar-start">

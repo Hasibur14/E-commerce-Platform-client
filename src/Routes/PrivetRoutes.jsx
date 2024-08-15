@@ -13,7 +13,7 @@ const PrivetRoutes = ({ children }) => {
     // console.log(location.pathname)
 
     if (loading) {
-        return <div className="container lg:mx-[850px] mt-16 ">
+        return <div className="container lg:mx-[850px] mt-32 ">
             <span>
                 <ImSpinner3 className='text-7xl text-red-500 animate-spin' />
             </span>

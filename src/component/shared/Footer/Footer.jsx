@@ -5,7 +5,7 @@ import titleImg from "../../../assets/titleImg.png";
 const Footer = () => {
     return (
         <>
-            <footer className="bg-black mt-10">
+            <footer className="bg-black">
                 <div className="  footer p-8 text-white">
                     <aside className="lg:space-y-3 ml-10 md:ml-10 lg:ml-44 ">
                         <div className="flex gap-2">

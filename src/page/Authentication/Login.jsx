@@ -5,9 +5,9 @@ import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import loginImg from '../../assets/register.png';
+import titleImg from "../../assets/titleImg.png";
 import app from '../../firebase/firebase.config';
 import { AuthContext } from '../../Provider/AuthProvider';
-
 
 
 
@@ -66,7 +66,7 @@ const Login = () => {
              <Helmet>
                 <title>Login |Prime Pick</title>
             </Helmet>
-            <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-5xl '>
+            <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg border-t lg:max-w-5xl '>
                 <div
                     className='hidden bg-cover bg-center lg:block lg:w-1/2'
                     style={{
@@ -76,7 +76,7 @@ const Login = () => {
 
                 <div className='w-full px-6 py-8 md:px-8 lg:w-1/2'>
                     <div className='flex justify-center mx-auto'>
-                       <h2>Prime pick</h2>
+                    <img src={titleImg} alt=""  className="w-10 h-10"/>
                     </div>
 
                     <p className='mt-3 text-xl text-center text-gray-600 '>
@@ -163,7 +163,7 @@ const Login = () => {
                         <div className='mt-6'>
                             <button
                                 type='submit'
-                                className='w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gradient-to-r from-purple-500 to-fuchsia-600 border-purple-600 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50'
+                                className='w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gradient-to-r from-orange-400 to-rose-500 border-orange-500 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50'
                             >
                                 Log In
                             </button>
