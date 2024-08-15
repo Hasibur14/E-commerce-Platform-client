@@ -1,3 +1,6 @@
+import { FaFacebook, FaLinkedin, FaTwitterSquare } from "react-icons/fa";
+import titleImg from "../../../assets/titleImg.png";
+
 
 const Footer = () => {
     return (
@@ -5,8 +8,9 @@ const Footer = () => {
             <footer className="bg-black mt-10">
                 <div className="  footer p-8 text-white">
                     <aside className="lg:space-y-3 ml-10 md:ml-10 lg:ml-44 ">
-                        <div className="flex">
-                            <img className="w-56 " src="" alt="" />
+                        <div className="flex gap-2">
+                            <img src={titleImg} alt="" className="w-7 h-8" />
+                            <h2 className="text-2xl font-bold ">Prime Pick</h2>
                         </div>
                         <p className="text-md opacity-75 lg:w-[550px]">Dramatically target adaptive collaboration and idea-sharing vis-a-vis orthogonal technologies. Holisticly.</p>
 
@@ -42,9 +46,9 @@ const Footer = () => {
                 <div className="footer justify-between container mx-auto p-4 flex text-white">
                     <p className='text-white'>Copyright © 2024 - All right reserved by </p>
                     <div className='flex space-x-2 text-xl'>
-                        {/* <span> <FaFacebook /></span>
+                        <span> <FaFacebook /></span>
                         <span><FaLinkedin /></span>
-                        <span><FaTwitterSquare /></span> */}
+                        <span><FaTwitterSquare /></span>
                     </div>
                 </div>
             </footer>

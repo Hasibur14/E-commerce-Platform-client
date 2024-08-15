@@ -1,6 +1,7 @@
 import { useContext, } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import titleImg from "../../../assets/titleImg.png";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext)
@@ -42,7 +43,8 @@ const Navbar = () => {
                             {links}
                         </ul>
                     </div>
-                    <div className="lg:ml-20">
+                    <div className="lg:ml-20 flex gap-1">
+                        <img src={titleImg} alt="" className="w-6 h-7" />
                         <h2 className="text-2xl font-bold ">Prime Pick</h2>
                     </div>
                 </div>
