@@ -19,8 +19,6 @@ export const router = createBrowserRouter([
                 path: '/product',
                 element: <PrivetRoutes><Product/></PrivetRoutes>
             },
-
-
             {
                 path: '/register',
                 element: <Register />

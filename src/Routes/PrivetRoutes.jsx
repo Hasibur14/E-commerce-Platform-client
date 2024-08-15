@@ -2,9 +2,9 @@
 
 import { PropTypes } from 'prop-types';
 import { useContext } from "react";
+import { ImSpinner3 } from "react-icons/im";
 import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from '../Provider/AuthProvider';
-
 
 const PrivetRoutes = ({ children }) => {
 
@@ -13,11 +13,10 @@ const PrivetRoutes = ({ children }) => {
     // console.log(location.pathname)
 
     if (loading) {
-        return <div className="container lg:mx-[800px] mt-16 ">
-            <span className="loading loading-spinner loading-xs"></span>
-            <span className="loading loading-spinner loading-sm"></span>
-            <span className="loading loading-spinner loading-md"></span>
-            <span className="loading loading-spinner loading-lg"></span>
+        return <div className="container lg:mx-[850px] mt-16 ">
+            <span>
+                <ImSpinner3 className='text-7xl text-red-500 animate-spin' />
+            </span>
         </div>
     }
 
