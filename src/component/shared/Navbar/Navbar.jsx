@@ -3,55 +3,22 @@ import { Link, NavLink } from "react-router-dom";
 
 
 
-
-
 const Navbar = () => {
-
-
 
     const links = (
         <>
             <li>
-                <NavLink to="/" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white  px-3 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-fuchsia-600 border-purple-600" : "hover:text-purple-600"} > <span>Home</span> </NavLink>
+                <NavLink to="/" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "  px-3 py-2 border-b-2 border-[#CDDC39] " : "hover:text-purple-600"} > <span>Home</span> </NavLink>
             </li>
             <li>
-                <NavLink to="/allService" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white  px-3 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-fuchsia-600 border-purple-600" : "hover:text-purple-600"} > <span>All Service</span> </NavLink>
-            </li>
-            <li>
-                <li
-                    className="dropdown dropdown-content z-50">
-                    <NavLink to="/dashboard"
-                        className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white  px-3 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-fuchsia-600 border-purple-600" : "hover:text-purple-600"} >
-                        <span
-                        >Dashboard
-                        </span>
-                    </NavLink>
-                    <ul
-                        tabIndex={0}
-                        className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-md w-40 lg:border border-purple-600'>
-                        <li>
-                            <Link to='/addService' className="hover:bg-purple-500 hover:text-white">Add Service</Link>
-                        </li>
-                        <li>
-                            <Link to='/manageService' className="hover:bg-purple-500 hover:text-white">Manage Service</Link>
-                        </li>
-                        <li>
-                            <Link to='/bookedService' className="hover:bg-purple-500 hover:text-white">Booked Service </Link>
-                        </li>
-                        <li>
-                            <Link to='/serviceToDo' className="hover:bg-purple-500 hover:text-white">Service To Do</Link>
-                        </li>
-
-                    </ul>
-                </li>
-
+                <NavLink to="/product" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? " px-3 py-2 rounded-lg bg-[#4a00d4] " : "hover:text-purple-600"} >Products <span></span> </NavLink>
             </li>
         </>
     );
 
 
     return (
-        <div className="fixed z-10 w-full border-b ">
+        <div className=" w-full border-b ">
             <div className="navbar flex justify-between lg:mx-28">
                 <div className="navbar">
                     <div className="dropdown">
@@ -63,7 +30,7 @@ const Navbar = () => {
                         </ul>
                     </div>
                     <div className="lg:ml-20">
-                        <img className="h-full w-56 " src="" alt="" />
+                        <h2 className="text-2xl font-bold">PrimePick</h2>
                     </div>
                 </div>
                 <div className="navbar-center hidden lg:flex">
