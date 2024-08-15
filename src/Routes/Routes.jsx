@@ -4,6 +4,7 @@ import Login from "../page/Authentication/Login";
 import Register from "../page/Authentication/Register";
 import Home from "../page/Home/Home";
 import Product from "../page/Product/Product";
+import PrivetRoutes from "./PrivetRoutes";
 
 export const router = createBrowserRouter([
     {
@@ -16,7 +17,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/product',
-                element:<Product/>
+                element: <PrivetRoutes><Product/></PrivetRoutes>
             },
 
 

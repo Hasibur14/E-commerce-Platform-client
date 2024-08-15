@@ -12,9 +12,9 @@ createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
       <HelmetProvider>
-        <Toaster>
+   
           <RouterProvider router={router}></RouterProvider>
-        </Toaster>
+      <Toaster/>
       </HelmetProvider>
     </AuthProvider>
   </React.StrictMode>
