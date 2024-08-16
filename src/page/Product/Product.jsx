@@ -1,80 +1,243 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
-import { CiCalendarDate } from "react-icons/ci";
-import { MdOutlineStarRate } from "react-icons/md";
-import Functionalities from "./Functionalities";
-
-
+import { Helmet } from "react-helmet-async";
+import ProductsCard from "./ProductsCard";
 
 const Product = () => {
-
+    const [itemsPerPage, setItemsPerPage] = useState(4);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [count, setCount] = useState(0);
+    const [filter, setFilter] = useState('');
+    const [brand, setBrand] = useState('');
+    const [priceRange, setPriceRange] = useState('');
+    const [sort, setSort] = useState('');
+    const [search, setSearch] = useState('');
+    const [searchText, setSearchText] = useState('');
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/products`)
-            .then(res => res.json())
-            .then(data => setProducts(data))
-    }, [])
+        const getData = async () => {
+            const { data } = await axios(
+                `${import.meta.env.VITE_API_URL}/products?page=${currentPage}&size=${itemsPerPage}&filter=${filter}&brand=${brand}&priceRange=${priceRange}&sort=${sort}&search=${search}`
+            );
+            setProducts(data);
+        };
+        getData();
+    }, [currentPage, filter, brand, priceRange, itemsPerPage, search, sort]);
 
+    useEffect(() => {
+        const getCount = async () => {
+            const { data } = await axios(
+                `${import.meta.env.VITE_API_URL}/product-count?filter=${filter}&brand=${brand}&priceRange=${priceRange}&search=${search}`
+            );
+            setCount(data.count);
+        };
+        getCount();
+    }, [filter, brand, priceRange, search]);
 
+    const numberOfPages = Math.ceil(count / itemsPerPage);
+    const pages = [...Array(numberOfPages).keys()].map(element => element + 1);
+
+    const handlePaginationButton = value => {
+        setCurrentPage(value);
+    };
+
+    const handleReset = () => {
+        setFilter('');
+        setBrand('');
+        setPriceRange('');
+        setSort('');
+        setSearch('');
+        setSearchText('');
+    };
+
+    const handleSearch = e => {
+        e.preventDefault();
+        setSearch(searchText);
+    };
 
     return (
         <div className=" bg-neutral-100">
-           <div className="container mx-auto  lg:flex justify-between">
-                <div className="lg:w-[20%]">
-                    <Functionalities />
-                </div>
-                <div className='lg:w-[75%] grid grid-cols-1 lg:grid-cols-3 gap-10 my-6 md:my-10'>
-                    {
-                        products.map(product => (
-                            <div key={product._id} className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md bg-white text-gray-800 border">
-                                <div>
-                                    <div className="relative w-full ">
-                                        <img
-                                            className="object-cover w-full h-[250px] rounded"
-                                            src={product.productImage}
-                                            alt="Product Image"
-                                        />
+            <Helmet>
+                <title>Products || PrimePick</title>
+            </Helmet>
 
-                                        <div className="absolute top-0 w-[70px] h-[70px] p-6 flex flex-col items-center justify-center bg-gradient-to-tr from-orange-400 to-rose-500">
-                                            <p className="text-2xl text-white font-bold">Price</p>
-                                            <p className="text-base text-white font-bold">
-                                                ${product.price}
-                                            </p>
-                                        </div>
-                                        {/* for right side border style */}
-                                        <div
-                                            className="absolute top-0 right-0 w-10 h-40 bg-gradient-to-tr from-orange-400 to-rose-500 opacity-95"
-                                            style={{
-                                                clipPath:
-                                                    "polygon(0 0, 100% 0, 100% 52%, 100% 100%, 48% 92%, 0 100%)",
-                                            }}
-                                        ></div>
-
-                                        <h4 className="absolute top-16 font-semibold -right-[32px] text-lg text-white -rotate-90 ">
-                                            Best Products
-                                        </h4>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <h2 className="mb-1 text-xl font-semibold hover:text-red-500">{product.productName}</h2>
-                                        <h3 className="badge badge-info text-white mt-2 mr-4"> {product.category}</h3>
-                                    </div>
-
-                                    <p className="text-md text-gray-600">  {product.description}</p>
+            <div className="container mx-auto lg:flex justify-between">
+                <div className="lg:w-[20%] mt-16">
+                    <div>
+                        <div className='space-y-5'>
+                            {/* Search by Text */}
+                            <form onSubmit={handleSearch}>
+                                <div className='flex p-1 overflow-hidden border rounded-lg focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300'>
+                                    <input
+                                        className='px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none focus:placeholder-transparent'
+                                        type='text'
+                                        onChange={e => setSearchText(e.target.value)}
+                                        value={searchText}
+                                        name='search'
+                                        placeholder='Search Products'
+                                        aria-label='Search Products'
+                                    />
+                                    <button className='px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none'>
+                                        Search
+                                    </button>
                                 </div>
-                                <div className="flex flex-wrap justify-between">
-                                    <div className="flex gap-1">
-                                        <CiCalendarDate className="text-xl" />
-                                        <span>{product.createdAt}</span>
-                                    </div>
-                                    <div className="flex gap-1 ">
-                                        <MdOutlineStarRate className="text-xl text-red-500" />
-                                        <span> {product.ratings}</span>
-                                    </div>
-                                </div>
+                            </form>
+                            {/* Filter By Brand */}
+                            <div >
+                                <select
+                                    onChange={e => {
+                                        setBrand(e.target.value);
+                                        setCurrentPage(1);
+                                    }}
+                                    value={brand}
+                                    name='brand'
+                                    id='brand'
+                                    className='border p-4 rounded-lg'
+                                >
+                                    <option value=''>Filter By Brand</option>
+                                    <option value='TechMaster'>TechMaster</option>
+                                    <option value='SoundWave'>SoundWave</option>
+                                    <option value='ProStand'>ProStand</option>
+                                    <option value='GameTech'>GameTech</option>
+                                    <option value='HomeTech'>HomeTech</option>
+                                </select>
                             </div>
-                        ))
-                    }
+
+                            {/* Filter By Category */}
+                            <div>
+                                <select
+                                    onChange={e => {
+                                        setFilter(e.target.value);
+                                        setCurrentPage(1);
+                                    }}
+                                    value={filter}
+                                    name='category'
+                                    id='category'
+                                    className='border p-4 rounded-lg'
+                                >
+                                    <option value=''>Filter By Category</option>
+                                    <option value='Electronics'>Electronics</option>
+                                    <option value='Home Appliances'>Home Appliances</option>
+                                    <option value='Kitchen'>Kitchen</option>
+                                    <option value='Health & Fitness'>Health & Fitness</option>
+                                    <option value='Accessories'>Accessories</option>
+                                    <option value='Home Decor'>Home Decor</option>
+                                    <option value='Personal Care'>Personal Care</option>
+                                    <option value='Outdoor & Sports'>Outdoor & Sports</option>
+                                    <option value='Home Security'>Home Security</option>
+                                </select>
+                            </div>
+
+                            {/* Filter By Price Range */}
+                            <div>
+                                <select
+                                    onChange={e => {
+                                        setPriceRange(e.target.value);
+                                        setCurrentPage(1);
+                                    }}
+                                    value={priceRange}
+                                    name='priceRange'
+                                    id='priceRange'
+                                    className='border p-4 rounded-lg'
+                                >
+                                    <option value=''>Filter By Price Range</option>
+                                    <option value='0-50'>$0 - $50</option>
+                                    <option value='51-100'>$51 - $100</option>
+                                    <option value='101-200'>$101 - $200</option>
+                                    <option value='201-300'>$201 - $300</option>
+                                    <option value='300+'>$300+</option>
+                                </select>
+                            </div>
+
+                            {/* Sort By */}
+                            <div>
+                                <select
+                                    onChange={e => {
+                                        setSort(e.target.value);
+                                        setCurrentPage(1);
+                                    }}
+                                    value={sort}
+                                    name='sort'
+                                    id='sort'
+                                    className='border p-4 rounded-md'
+                                >
+                                    <option value=''>Sort By Price</option>
+                                    <option value='asc'>Low to High</option>
+                                    <option value='dsc'>High to Low</option>
+                                </select>
+                            </div>
+
+                            {/* Reset Button */}
+                            <button onClick={handleReset} className='btn'>
+                                Reset
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
+                <div className='lg:w-[75%] my-6 md:my-10'>
+                    <ProductsCard products={products} />
+                </div>
+            </div>
+
+            {/* Pagination Section */}
+            <div className='flex justify-center mt-12'>
+                <button
+                    disabled={currentPage === 1}
+                    onClick={() => handlePaginationButton(currentPage - 1)}
+                    className='px-4 py-2 mx-1 text-gray-700 disabled:text-gray-500 capitalize bg-gray-200 rounded-md disabled:cursor-not-allowed disabled:hover:bg-gray-200 disabled:hover:text-gray-500 hover:bg-blue-500 hover:text-white'
+                >
+                    <div className='flex items-center -mx-1'>
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            className='w-6 h-6 mx-1 rtl:-scale-x-100'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            stroke='currentColor'
+                        >
+                            <path
+                                strokeLinecap='round'
+                                strokeLinejoin='round'
+                                strokeWidth='2'
+                                d='M7 16l-4-4m0 0l4-4m-4 4h18'
+                            />
+                        </svg>
+                        <span className='mx-1'>Previous</span>
+                    </div>
+                </button>
+                {pages.map(btnNum => (
+                    <button
+                        onClick={() => handlePaginationButton(btnNum)}
+                        key={btnNum}
+                        className={`hidden ${currentPage === btnNum ? 'bg-blue-500 text-white' : ''} px-4 py-2 mx-1 transition-colors duration-300 transform  rounded-md sm:inline hover:bg-blue-500 hover:text-white`}
+                    >
+                        {btnNum}
+                    </button>
+                ))}
+                <button
+                    disabled={currentPage === numberOfPages}
+                    onClick={() => handlePaginationButton(currentPage + 1)}
+                    className='px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-gray-200 rounded-md hover:bg-blue-500 disabled:hover:bg-gray-200 disabled:hover:text-gray-500 hover:text-white disabled:cursor-not-allowed disabled:text-gray-500'
+                >
+                    <div className='flex items-center -mx-1'>
+                        <span className='mx-1'>Next</span>
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            className='w-6 h-6 mx-1 rtl:-scale-x-100'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            stroke='currentColor'
+                        >
+                            <path
+                                strokeLinecap='round'
+                                strokeLinejoin='round'
+                                strokeWidth='2'
+                                d='M17 8l4 4m0 0l-4 4m4-4H3'
+                            />
+                        </svg>
+                    </div>
+                </button>
             </div>
         </div>
     );
