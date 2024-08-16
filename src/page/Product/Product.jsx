@@ -15,16 +15,14 @@ const Product = () => {
     const [search, setSearch] = useState('');
     const [searchText, setSearchText] = useState('');
     const [products, setProducts] = useState([]);
-
-
+    const [dateSort, setDateSort] = useState('');
 
     useEffect(() => {
         const getData = async () => {
             try {
                 const { data } = await axios(
-                    `${import.meta.env.VITE_API_URL}/all-products?page=${currentPage}&size=${itemsPerPage}&filter=${filter}&brand=${brand}&priceRange=${priceRange}&sort=${sort}&search=${search}`
+                    `${import.meta.env.VITE_API_URL}/all-products?page=${currentPage}&size=${itemsPerPage}&filter=${filter}&brand=${brand}&priceRange=${priceRange}&sort=${sort}&search=${search}&dateSort=${dateSort}`
                 );
-                console.log(data); 
                 setProducts(data.products);
                 setCount(data.count);
             } catch (error) {
@@ -33,8 +31,7 @@ const Product = () => {
         };
 
         getData();
-    }, [currentPage, filter, brand, priceRange, itemsPerPage, search, sort]);
-
+    }, [currentPage, filter, brand, priceRange, itemsPerPage, search, sort, dateSort]);
 
     useEffect(() => {
         const getCount = async () => {
@@ -139,7 +136,7 @@ const Product = () => {
                                     <option value='Electronics'>Electronics</option>
                                     <option value='Home Appliances'>Home Appliances</option>
                                     <option value='Kitchen'>Kitchen</option>
-                                    <option value='Accessories'>Accessories</option>                           
+                                    <option value='Accessories'>Accessories</option>
                                     <option value='Personal Care'>Personal Care</option>
                                     <option value='Home Security'>Home Security</option>
                                 </select>
@@ -166,23 +163,84 @@ const Product = () => {
                                 </select>
                             </div>
 
-                            {/* Sort By */}
+                            {/* Sort By price */}
                             <div>
-                                <select
-                                    onChange={e => {
-                                        setSort(e.target.value);
-                                        setCurrentPage(1);
-                                    }}
-                                    value={sort}
-                                    name='sort'
-                                    id='sort'
-                                    className='border p-3 w-full rounded-md'
-                                >
-                                    <option value=''>Sort By Date</option>
-                                    <option value='asc'>Price Low to High</option>
-                                    <option value='dsc'>price High to Low</option>
-                                </select>
+                                <label htmlFor="" className="font-bold">Sorting by Price</label>
+                                <div className='flex items-center'>
+                                    <input
+                                        type='checkbox'
+                                        id='sortAsc'
+                                        checked={sort === 'asc'}
+                                        onChange={() => {
+                                            setSort(sort === 'asc' ? '' : 'asc');
+                                            setCurrentPage(1);
+                                        }}
+                                        className='mr-2'
+                                    />
+                                    <label htmlFor='sortAsc' className='cursor-pointer'>
+                                        Price Low to High
+                                    </label>
+                                </div>
+                                <div className='flex items-center mt-2'>
+                                    <input
+                                        type='checkbox'
+                                        id='sortDsc'
+                                        checked={sort === 'dsc'}
+                                        onChange={() => {
+                                            setSort(sort === 'dsc' ? '' : 'dsc');
+                                            setCurrentPage(1);
+                                        }}
+                                        className='mr-2'
+                                    />
+                                    <label htmlFor='sortDsc' className='cursor-pointer'>
+                                        Price High to Low
+                                    </label>
+                                </div>
+                                <div className="border-b border-2 mt-4"></div>
+
+                                {/* Sort By Date */}
+                                <div className="mt-5">
+                                    <label htmlFor="dateSort" className="font-bold">Sorting by Date</label>
+                                    <div className='flex items-center mt-2'>
+                                        <input
+                                            type='radio'
+                                            id='sortDateAsc'
+                                            name='dateSort'
+                                            value='asc'
+                                            checked={dateSort === 'asc'}
+                                            onChange={() => {
+                                                setDateSort('asc'); // Set sorting to ascending date
+                                                setSort(''); // Clear price sort
+                                                setCurrentPage(1);
+                                            }}
+                                            className='mr-2'
+                                        />
+                                        <label htmlFor='sortDateAsc' className='cursor-pointer'>
+                                            Date Old to New
+                                        </label>
+                                    </div>
+                                    <div className='flex items-center mt-2'>
+                                        <input
+                                            type='radio'
+                                            id='sortDateDsc'
+                                            name='dateSort'
+                                            value='dsc'
+                                            checked={dateSort === 'dsc'}
+                                            onChange={() => {
+                                                setDateSort('dsc'); // Set sorting to descending date
+                                                setSort(''); // Clear price sort
+                                                setCurrentPage(1);
+                                            }}
+                                            className='mr-2'
+                                        />
+                                        <label htmlFor='sortDateDsc' className='cursor-pointer'>
+                                            Date New to Old
+                                        </label>
+                                    </div>
+                                </div>
+
                             </div>
+
 
                             {/* Reset Button */}
                             <button onClick={handleReset} className='btn bg-gradient-to-r from-orange-400 to-rose-500 border-orange-500 text-white w-full text-lg'>
