@@ -76,7 +76,7 @@ const Product = () => {
     };
 
     return (
-        <div className=" bg-neutral-100 my-14">
+        <div className=" bg-neutral-100  pb-10">
             <Helmet>
                 <title>Products || PrimePick</title>
             </Helmet>
