@@ -4,7 +4,8 @@ import { Helmet } from "react-helmet-async";
 import ProductsCard from "./ProductsCard";
 
 const Product = () => {
-    const [itemsPerPage, setItemsPerPage] = useState(4);
+
+    const [itemsPerPage, setItemsPerPage] = useState(6);
     const [currentPage, setCurrentPage] = useState(1);
     const [count, setCount] = useState(0);
     const [filter, setFilter] = useState('');
@@ -15,33 +16,49 @@ const Product = () => {
     const [searchText, setSearchText] = useState('');
     const [products, setProducts] = useState([]);
 
+
+
     useEffect(() => {
         const getData = async () => {
-            const { data } = await axios(
-                `${import.meta.env.VITE_API_URL}/products?page=${currentPage}&size=${itemsPerPage}&filter=${filter}&brand=${brand}&priceRange=${priceRange}&sort=${sort}&search=${search}`
-            );
-            setProducts(data);
+            try {
+                const { data } = await axios(
+                    `${import.meta.env.VITE_API_URL}/all-products?page=${currentPage}&size=${itemsPerPage}&filter=${filter}&brand=${brand}&priceRange=${priceRange}&sort=${sort}&search=${search}`
+                );
+                console.log(data); 
+                setProducts(data.products);
+                setCount(data.count);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
         };
+
         getData();
     }, [currentPage, filter, brand, priceRange, itemsPerPage, search, sort]);
+
 
     useEffect(() => {
         const getCount = async () => {
             const { data } = await axios(
-                `${import.meta.env.VITE_API_URL}/product-count?filter=${filter}&brand=${brand}&priceRange=${priceRange}&search=${search}`
+                `${import.meta.env.VITE_API_URL}/products-count?filter=${filter}&brand=${brand}&priceRange=${priceRange}&search=${search}`
             );
             setCount(data.count);
         };
         getCount();
     }, [filter, brand, priceRange, search]);
 
+
+
     const numberOfPages = Math.ceil(count / itemsPerPage);
     const pages = [...Array(numberOfPages).keys()].map(element => element + 1);
 
+
+    // Pagination
     const handlePaginationButton = value => {
         setCurrentPage(value);
     };
 
+
+    // Reset
     const handleReset = () => {
         setFilter('');
         setBrand('');
@@ -51,21 +68,24 @@ const Product = () => {
         setSearchText('');
     };
 
+
+    // Search 
     const handleSearch = e => {
         e.preventDefault();
         setSearch(searchText);
     };
 
     return (
-        <div className=" bg-neutral-100">
+        <div className=" bg-neutral-100 my-14">
             <Helmet>
                 <title>Products || PrimePick</title>
             </Helmet>
 
             <div className="container mx-auto lg:flex justify-between">
-                <div className="lg:w-[20%] mt-16">
+                <div className="lg:w-[21%] mt-16">
                     <div>
                         <div className='space-y-5'>
+
                             {/* Search by Text */}
                             <form onSubmit={handleSearch}>
                                 <div className='flex p-1 overflow-hidden border rounded-lg focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300'>
@@ -78,7 +98,7 @@ const Product = () => {
                                         placeholder='Search Products'
                                         aria-label='Search Products'
                                     />
-                                    <button className='px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none'>
+                                    <button className='px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-orange-500 rounded-md hover:bg-red-500 focus:bg-gray-600 focus:outline-none'>
                                         Search
                                     </button>
                                 </div>
@@ -93,13 +113,12 @@ const Product = () => {
                                     value={brand}
                                     name='brand'
                                     id='brand'
-                                    className='border p-4 rounded-lg'
+                                    className='border p-3 rounded-lg w-full'
                                 >
                                     <option value=''>Filter By Brand</option>
                                     <option value='TechMaster'>TechMaster</option>
                                     <option value='SoundWave'>SoundWave</option>
                                     <option value='ProStand'>ProStand</option>
-                                    <option value='GameTech'>GameTech</option>
                                     <option value='HomeTech'>HomeTech</option>
                                 </select>
                             </div>
@@ -114,17 +133,14 @@ const Product = () => {
                                     value={filter}
                                     name='category'
                                     id='category'
-                                    className='border p-4 rounded-lg'
+                                    className='border p-3 w-full rounded-lg'
                                 >
                                     <option value=''>Filter By Category</option>
                                     <option value='Electronics'>Electronics</option>
                                     <option value='Home Appliances'>Home Appliances</option>
                                     <option value='Kitchen'>Kitchen</option>
-                                    <option value='Health & Fitness'>Health & Fitness</option>
-                                    <option value='Accessories'>Accessories</option>
-                                    <option value='Home Decor'>Home Decor</option>
+                                    <option value='Accessories'>Accessories</option>                           
                                     <option value='Personal Care'>Personal Care</option>
-                                    <option value='Outdoor & Sports'>Outdoor & Sports</option>
                                     <option value='Home Security'>Home Security</option>
                                 </select>
                             </div>
@@ -139,7 +155,7 @@ const Product = () => {
                                     value={priceRange}
                                     name='priceRange'
                                     id='priceRange'
-                                    className='border p-4 rounded-lg'
+                                    className='border p-3 w-full rounded-lg'
                                 >
                                     <option value=''>Filter By Price Range</option>
                                     <option value='0-50'>$0 - $50</option>
@@ -160,16 +176,16 @@ const Product = () => {
                                     value={sort}
                                     name='sort'
                                     id='sort'
-                                    className='border p-4 rounded-md'
+                                    className='border p-3 w-full rounded-md'
                                 >
-                                    <option value=''>Sort By Price</option>
-                                    <option value='asc'>Low to High</option>
-                                    <option value='dsc'>High to Low</option>
+                                    <option value=''>Sort By Date</option>
+                                    <option value='asc'>Price Low to High</option>
+                                    <option value='dsc'>price High to Low</option>
                                 </select>
                             </div>
 
                             {/* Reset Button */}
-                            <button onClick={handleReset} className='btn'>
+                            <button onClick={handleReset} className='btn bg-gradient-to-r from-orange-400 to-rose-500 border-orange-500 text-white w-full text-lg'>
                                 Reset
                             </button>
                         </div>
@@ -210,7 +226,7 @@ const Product = () => {
                     <button
                         onClick={() => handlePaginationButton(btnNum)}
                         key={btnNum}
-                        className={`hidden ${currentPage === btnNum ? 'bg-blue-500 text-white' : ''} px-4 py-2 mx-1 transition-colors duration-300 transform  rounded-md sm:inline hover:bg-blue-500 hover:text-white`}
+                        className={`hidden ${currentPage === btnNum ? 'bg-orange-500 text-white' : ''} px-4 py-2 mx-1 transition-colors duration-300 transform  rounded-md sm:inline hover:bg-blue-500 hover:text-white`}
                     >
                         {btnNum}
                     </button>
