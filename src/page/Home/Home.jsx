@@ -4,11 +4,11 @@ import bannerImg from '../../assets/banner1.png';
 
 const Home = () => {
     return (
-        <div className='container mx-auto'>
+        <div className='container mx-auto mt-20'>
             <Helmet>
                 <title>Home || PrimePick</title>
             </Helmet>
-            <div className="container px-6 py-4 mx-auto">
+            <div className="">
                 <div className="w-full bg-center bg-cover h-[38rem] rounded-xl" style={{ backgroundImage: `url(${bannerImg})` }}>
                     <div className="flex items-center justify-center rounded-xl w-full h-full bg-gray-900/40">
                         <div className="text-center">

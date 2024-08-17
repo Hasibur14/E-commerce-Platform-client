@@ -73,12 +73,12 @@ const Product = () => {
     };
 
     return (
-        <div className=" bg-neutral-100  pb-10">
+        <div className=" bg-neutral-100  pb-10 ">
             <Helmet>
                 <title>Products || PrimePick</title>
             </Helmet>
 
-            <div className="container mx-auto lg:flex justify-between">
+            <div className="container mx-auto lg:flex justify-between pt-8 lg:pt-16 px-6 md:px-0">
                 <div className="lg:w-[21%] mt-16">
                     <div>
                         <div className='space-y-5'>
@@ -178,7 +178,7 @@ const Product = () => {
                                         className='mr-2'
                                     />
                                     <label htmlFor='sortAsc' className='cursor-pointer'>
-                                        Price Low to High
+                                        Low to High
                                     </label>
                                 </div>
                                 <div className='flex items-center mt-2'>
@@ -193,7 +193,7 @@ const Product = () => {
                                         className='mr-2'
                                     />
                                     <label htmlFor='sortDsc' className='cursor-pointer'>
-                                        Price High to Low
+                                        High to Low
                                     </label>
                                 </div>
                                 <div className="border-b border-2 mt-4"></div>
@@ -216,7 +216,7 @@ const Product = () => {
                                             className='mr-2'
                                         />
                                         <label htmlFor='sortDateAsc' className='cursor-pointer'>
-                                            Date Old to New
+                                        Oldest first
                                         </label>
                                     </div>
                                     <div className='flex items-center mt-2'>
@@ -234,7 +234,7 @@ const Product = () => {
                                             className='mr-2'
                                         />
                                         <label htmlFor='sortDateDsc' className='cursor-pointer'>
-                                            Date New to Old
+                                        Newest first
                                         </label>
                                     </div>
                                 </div>

@@ -39,7 +39,7 @@ const Navbar = () => {
                 <NavLink
                     to="/"
                     className={({ isActive, isPending }) =>
-                        isPending ? "pending" : isActive ? "border-b-4 border-orange-500" : "hover:text-orange-500"
+                        isPending ? "pending" : isActive ? "border-b-4 border-white" : "hover:text-white"
                     }
                 >
                     Home
@@ -49,7 +49,7 @@ const Navbar = () => {
                 <NavLink
                     to="/product"
                     className={({ isActive, isPending }) =>
-                        isPending ? "pending" : isActive ? "border-b-4 border-orange-500" : "hover:text-orange-500"
+                        isPending ? "pending" : isActive ? "border-b-4 border-white" : "hover:text-white"
                     }
                 >
                     Products
@@ -59,7 +59,7 @@ const Navbar = () => {
                 <NavLink
                     to="/contact"
                     className={({ isActive, isPending }) =>
-                        isPending ? "pending" : isActive ? "border-b-4 border-orange-500" : "hover:text-orange-500"
+                        isPending ? "pending" : isActive ? "border-b-4 border-white" : "hover:text-white"
                     }
                 >
                     Contact
@@ -69,8 +69,8 @@ const Navbar = () => {
     );
 
     return (
-        <div className={`w-full border-b shadow transition-transform duration-300 fixed top-0 left-0 right-0 z-50 bg-white ${showNavbar ? "translate-y-0" : "-translate-y-full"}`}>
-            <div className="container mx-auto">
+        <div className={`w-full  transition-transform duration-300 fixed top-0 left-0 right-0 z-50  ${showNavbar ? "translate-y-0" : "-translate-y-full"}`}>
+            <div className="container mx-auto bg-gradient-to-r from-orange-400 to-rose-500 shadow rounded-b-[50px] lg:px-4">
                 <div className="navbar">
                     <div className="navbar-start">
                         <div className="dropdown">
@@ -79,17 +79,17 @@ const Navbar = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
                                 </svg>
                             </div>
-                            <ul tabIndex={0} className="dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 border border-orange-500 rounded-box w-32 h-32 space-y-2">
+                            <ul tabIndex={0} className="dropdown-content mt-3 z-[1] p-2 shadow rou bg-black border  text-white  w-72 h-72 space-y-2">
                                 {links}
                             </ul>
                         </div>
                         <div className="flex gap-1">
                             <img src={titleImg} alt="Title" className="w-6 h-7" />
-                            <h2 className="text-2xl font-bold">Prime Pick</h2>
+                            <h2 className="text-2xl font-bold text-white w-44">Prime Pick</h2>
                         </div>
                     </div>
                     <div className="navbar-center hidden lg:flex">
-                        <ul className="menu-horizontal px-1 space-x-8 text-[16px] lg:mr-36 font-bold">
+                        <ul className="menu-horizontal text-white px-1 space-x-8 text-[16px] lg:mr-36 font-bold">
                             {links}
                         </ul>
                     </div>
@@ -97,7 +97,7 @@ const Navbar = () => {
                         {user && (
                             <div className="hidden lg:flex items-center space-x-4">
                                 <div className="tooltip tooltip-warning tooltip-bottom" data-tip={user.displayName}>
-                                    <div className="rounded-full border border-red-500 text-orange-500">
+                                    <div className="rounded-full border border-red-500 text-white">
                                         <img
                                             className="rounded-full w-10 h-10"
                                             src={user.photoURL || userImg}
@@ -105,7 +105,7 @@ const Navbar = () => {
                                         />
                                     </div>
                                 </div>
-                                <button onClick={handleSignOut} className="px-2 py-2 font-bold rounded-md hover:bg-transparent border-2 text-orange-500 hover:bg-gradient-to-r from-orange-400 to-rose-500 border-orange-500 hover:text-white">
+                                <button onClick={handleSignOut} className="px-2 py-2 font-bold rounded-md hover:bg-transparent border-2 text-white hover:bg-gradient-to-r from-orange-400 to-rose-500 border-white hover:text-white">
                                     Log out
                                 </button>
                             </div>
@@ -113,13 +113,13 @@ const Navbar = () => {
                         {!user && (
                             <div className="hidden lg:flex items-center space-x-4">
                                 <Link to='/login'>
-                                    <button className="px-2 py-2 font-bold rounded-md hover:bg-transparent border-2 text-orange-500 hover:bg-gradient-to-r from-orange-400 to-rose-500 border-orange-500 hover:text-white">
+                                    <button className="px-2 py-2 font-bold rounded-md hover:bg-transparent border-2 text-white hover:bg-gradient-to-r from-orange-400 to-rose-500 border-white hover:text-white">
                                         Sign in
                                     </button>
                                 </Link>
-                                <div className="h-[25px] bg-orange-600 text-orange-500 hidden lg:block">|</div>
+                                <div className="h-[25px] bg-white text-white hidden lg:block">|</div>
                                 <Link to='/register'>
-                                    <button className="px-2 py-2 font-bold rounded-md bg-gradient-to-r from-orange-400 to-rose-500 text-white border-2 border-orange-500">
+                                    <button className="px-2 py-2 font-bold rounded-md bg-gradient-to-r from-orange-400 to-rose-500 text-white border-2 border-white">
                                         Sign up
                                     </button>
                                 </Link>
