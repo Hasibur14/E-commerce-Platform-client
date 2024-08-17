@@ -1,6 +1,7 @@
 ## <span style="font-size: 2em; font-weight: bold;">Prime Pick</span>
 
-Dine Dorm is an online platform designed to conveniently meet the daily meal needs of users, particularly those living in dormitories or shared accommodations. This project aims to provide a streamlined solution for meal planning and management.
+
+This project is an e-commerce website that allows users to browse, filter, search, and sort products by various criteria such as category, brand, price range, and date of addition. It features pagination for easy navigation through products and a backend API for fetching product data and managing queries. The frontend is built with React, while the backend uses Express.js and MongoDB.
 
 ## <span style="font-size: 1.5em; font-weight: bold;">Visit our Website</span>
 
