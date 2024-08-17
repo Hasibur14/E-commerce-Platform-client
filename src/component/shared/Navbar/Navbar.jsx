@@ -36,8 +36,8 @@ const Navbar = () => {
     const links = (
         <>
             <li>
-                <NavLink 
-                    to="/" 
+                <NavLink
+                    to="/"
                     className={({ isActive, isPending }) =>
                         isPending ? "pending" : isActive ? "border-b-4 border-orange-500" : "hover:text-orange-500"
                     }
@@ -46,8 +46,8 @@ const Navbar = () => {
                 </NavLink>
             </li>
             <li>
-                <NavLink 
-                    to="/product" 
+                <NavLink
+                    to="/product"
                     className={({ isActive, isPending }) =>
                         isPending ? "pending" : isActive ? "border-b-4 border-orange-500" : "hover:text-orange-500"
                     }
@@ -56,18 +56,8 @@ const Navbar = () => {
                 </NavLink>
             </li>
             <li>
-                <NavLink 
-                    to="/service" 
-                    className={({ isActive, isPending }) =>
-                        isPending ? "pending" : isActive ? "border-b-4 border-orange-500" : "hover:text-orange-500"
-                    }
-                >
-                    Service
-                </NavLink>
-            </li>
-            <li>
-                <NavLink 
-                    to="/contact" 
+                <NavLink
+                    to="/contact"
                     className={({ isActive, isPending }) =>
                         isPending ? "pending" : isActive ? "border-b-4 border-orange-500" : "hover:text-orange-500"
                     }
